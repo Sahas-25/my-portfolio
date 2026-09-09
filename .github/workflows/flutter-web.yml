@@ -16,18 +16,19 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Setup Flutter
+      - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.35.6'
+          flutter-version: '3.47.2'
           channel: stable
+          architecture: x64
 
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Build Flutter Web
+      - name: Build web
         run: flutter build web --release --base-href /my-portfolio/
 
       - name: Upload website
@@ -35,5 +36,5 @@ jobs:
         with:
           path: build/web
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: actions/deploy-pages@v4
