@@ -15,18 +15,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          flutter-version: '3.35.6'
+          channel: stable
 
-      - run: flutter pub get
+      - name: Get dependencies
+        run: flutter pub get
 
-      - run: flutter build web --release --base-href /my-portfolio/
+      - name: Build Flutter Web
+        run: flutter build web --release --base-href /my-portfolio/
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
 
-      - uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
